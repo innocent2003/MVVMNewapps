@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.application)
+//    alias(libs.plugins.kotlin.android)
+//    alias(libs.plugins.ksp)
 }
+
 android {
     namespace = "com.example.myapplication"
 
@@ -10,38 +13,28 @@ android {
         applicationId = "com.example.myapplication"
         minSdk = 25
         targetSdk = 37
+
+        versionCode = 1
+        versionName = "1.0"
+
+        testInstrumentationRunner =
+            "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_21
+        targetCompatibility = JavaVersion.VERSION_21
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = false
+        }
+    }
+//    kotlinOptions {
+//        jvmTarget = "21"
+//    }
 }
-//android {
-//    namespace = "com.example.myapplication"
-//    compileSdk {
-//        version = release(36) {
-//            minorApiLevel = 1
-//        }
-//    }
-//
-//    defaultConfig {
-//        applicationId = "com.example.myapplication"
-//        minSdk = 24
-//        targetSdk = 36
-//        versionCode = 1
-//        versionName = "1.0"
-//
-//        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-//    }
-//
-//    buildTypes {
-//        release {
-//            optimization {
-//                enable = false
-//            }
-//        }
-//    }
-//    compileOptions {
-//        sourceCompatibility = JavaVersion.VERSION_11
-//        targetCompatibility = JavaVersion.VERSION_11
-//    }
-//}
 
 dependencies {
     implementation(libs.androidx.activity.ktx)
@@ -49,39 +42,27 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.androidx.core.ktx)
     implementation(libs.material)
+
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.2")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.9.2")
+
+    implementation("androidx.room:room-runtime:2.7.2")
+    implementation("androidx.room:room-ktx:2.7.2")
+
+
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
+
+    implementation("com.squareup.retrofit2:retrofit:3.0.0")
+    implementation("com.squareup.retrofit2:converter-gson:3.0.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
+
+    implementation("androidx.navigation:navigation-fragment-ktx:2.9.3")
+    implementation("androidx.navigation:navigation-ui-ktx:2.9.3")
+
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
     testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
-
-    // Architectural Components
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
-
-    // Room
-    implementation ("androidx.room:room-runtime:2.2.5")
-//    kapt ("androidx.room:room-compiler:2.2.5")
-
-    // Kotlin Extensions and Coroutines support for Room
-    implementation ("androidx.room:room-ktx:2.2.5")
-
-    // Coroutines
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.5")
-    implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.5")
-
-    // Coroutine Lifecycle Scopes
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0")
-    implementation ("androidx.lifecycle:lifecycle-runtime-ktx:2.2.0")
-
-    // Retrofit
-    implementation ("com.squareup.retrofit2:retrofit:2.6.0")
-    implementation ("com.squareup.retrofit2:converter-gson:2.6.0")
-    implementation ("com.squareup.okhttp3:logging-interceptor:4.5.0")
-
-    // Navigation Components
-    implementation ("androidx.navigation:navigation-fragment-ktx:2.2.1")
-    implementation ("androidx.navigation:navigation-ui-ktx:2.2.1")
-
-    // Glide
-    implementation ("com.github.bumptech.glide:glide:4.11.0")
-//    kapt 'com.github.bumptech.glide:compiler:4.11.0'
-
+    androidTestImplementation(libs.androidx.espresso.core)
 }

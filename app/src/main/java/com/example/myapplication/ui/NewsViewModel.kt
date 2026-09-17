@@ -13,6 +13,7 @@ import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.myapplication.NewsApplication
 
 import com.example.myapplication.models.Article
 import com.example.myapplication.util.Resource

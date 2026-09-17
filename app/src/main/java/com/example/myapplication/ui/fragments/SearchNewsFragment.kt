@@ -3,6 +3,10 @@ package com.example.myapplication.ui.fragments
 import android.os.Bundle
 import android.view.View
 import android.widget.AbsListView
+import android.widget.Button
+import android.widget.EditText
+import android.widget.ProgressBar
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
@@ -10,25 +14,42 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-
+import com.example.myapplication.R
+import com.example.myapplication.adapters.NewsAdapter
+import com.example.myapplication.ui.NewsActivity
 import com.example.myapplication.ui.NewsViewModel
+import com.example.myapplication.util.Constants
+import com.example.myapplication.util.Resource
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import com.example.myapplication.R
-import com.example.myapplication.adapters.NewsAdapter
-import com.example.myapplication.ui.NewsActivity
 
 class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
 
     lateinit var viewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
+
+    private lateinit var etSearch: EditText
+    private lateinit var rvSearchNews: RecyclerView
+    private lateinit var itemErrorMessage: View
+    private lateinit var paginationProgressBar: ProgressBar
+    private lateinit var tvErrorMessage: TextView
+    private lateinit var btnRetry: Button
+
     val TAG = "SearchNewsFragment"
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as NewsActivity).viewModel
+
+        etSearch = view.findViewById(R.id.etSearch)
+        rvSearchNews = view.findViewById(R.id.rvSearchNews)
+        itemErrorMessage = view.findViewById(R.id.itemErrorMessage)
+        paginationProgressBar = view.findViewById(R.id.paginationProgressBar)
+        tvErrorMessage = view.findViewById(R.id.tvErrorMessage)
+        btnRetry = view.findViewById(R.id.btnRetry)
+
         setupRecyclerView()
 
         newsAdapter.setOnItemClickListener {
@@ -45,7 +66,7 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
         etSearch.addTextChangedListener { editable ->
             job?.cancel()
             job = MainScope().launch {
-                delay(SEARCH_NEWS_TIME_DELAY)
+                delay(Constants.SEARCH_NEWS_TIME_DELAY)
                 editable?.let {
                     if(editable.toString().isNotEmpty()) {
                         viewModel.searchNews(editable.toString())
@@ -145,7 +166,6 @@ class SearchNewsFragment : Fragment(R.layout.fragment_search_news) {
             }
         }
     }
-
 
     private fun setupRecyclerView() {
         newsAdapter = NewsAdapter()

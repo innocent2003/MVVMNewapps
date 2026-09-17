@@ -1,4 +1,6 @@
 package com.example.myapplication.api
+import com.example.myapplication.models.NewsResponse
+import com.example.myapplication.util.Constants
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
@@ -11,7 +13,7 @@ interface NewsAPI {
         @Query("page")
         pageNumber: Int = 1,
         @Query("apiKey")
-        apiKey: String = API_KEY
+        apiKey: String = Constants.API_KEY
     ): Response<NewsResponse>
 
     @GET("v2/everything")
@@ -21,6 +23,6 @@ interface NewsAPI {
         @Query("page")
         pageNumber: Int = 1,
         @Query("apiKey")
-        apiKey: String = API_KEY
+        apiKey: String = Constants.API_KEY
     ): Response<NewsResponse>
 }

@@ -8,6 +8,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.R
+import com.example.myapplication.adapters.NewsAdapter
+import com.example.myapplication.ui.NewsActivity
+import com.example.myapplication.ui.NewsViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlin.collections.get
 
@@ -15,10 +19,13 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
 
     lateinit var viewModel: NewsViewModel
     lateinit var newsAdapter: NewsAdapter
+    private lateinit var rvSavedNews: RecyclerView
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = (activity as NewsActivity).viewModel
+
+        rvSavedNews = view.findViewById(R.id.rvSavedNews)
         setupRecyclerView()
 
         newsAdapter.setOnItemClickListener {
