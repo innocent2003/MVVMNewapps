@@ -9,6 +9,12 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.myapplication.R
+import com.example.myapplication.adapters.NewsAdapter
+import com.example.myapplication.ui.NewsActivity
+import com.example.myapplication.ui.NewsViewModel
+import com.example.myapplication.util.Constants
+import com.example.myapplication.util.Resource
 
 class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
 
@@ -39,7 +45,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
                     hideErrorMessage()
                     response.data?.let { newsResponse ->
                         newsAdapter.differ.submitList(newsResponse.articles.toList())
-                        val totalPages = newsResponse.totalResults / QUERY_PAGE_SIZE + 2
+                        val totalPages = newsResponse.totalResults / Constants.QUERY_PAGE_SIZE + 2
                         isLastPage = viewModel.breakingNewsPage == totalPages
                         if(isLastPage) {
                             rvBreakingNews.setPadding(0, 0, 0, 0)
@@ -103,7 +109,7 @@ class BreakingNewsFragment : Fragment(R.layout.fragment_breaking_news) {
             val isNotLoadingAndNotLastPage = !isLoading && !isLastPage
             val isAtLastItem = firstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotAtBeginning = firstVisibleItemPosition >= 0
-            val isTotalMoreThanVisible = totalItemCount >= QUERY_PAGE_SIZE
+            val isTotalMoreThanVisible = totalItemCount >= Constants.QUERY_PAGE_SIZE
             val shouldPaginate = isNoErrors && isNotLoadingAndNotLastPage && isAtLastItem && isNotAtBeginning &&
                     isTotalMoreThanVisible && isScrolling
             if(shouldPaginate) {

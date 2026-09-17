@@ -1,5 +1,9 @@
 package com.example.myapplication.repository
 
+import com.example.myapplication.api.RetrofitInstance
+import com.example.myapplication.db.ArticleDatabase
+import com.example.myapplication.models.Article
+
 class NewsRepository(
     val db: ArticleDatabase
 ) {
